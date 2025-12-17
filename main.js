@@ -11,7 +11,9 @@ const ai = [];
 const button = document.getElementById("calculateBtn");
 const checkbox = document.getElementById('pt3Check');
 const pred = document.getElementById('prediction');
-toAchieve = 33.3;
+let toAchieve = 33.3;
+let currentWeightage = 0;
+let perSub = 0;
 selectElement.addEventListener('change', (event) => {
     selectedValue = event.target.value;
     if (selectedValue === "bio") {
@@ -41,33 +43,33 @@ button.addEventListener("click", function () {
 
     const v = id => Number(document.getElementById(id).value) || 0;
 
-    phy.push(Math.round(v("phy1") / 35 * 10));
+    phy.push(v("phy1") / 35 * 10);
     phy.push(Math.round(v("phy2") / 70 * 30));
     phy.push(Math.round(v("phy3") / 35 * 10));
 
-    chem.push(Math.round(v("che1") / 35 * 10));
-    chem.push(Math.round(v("che2") / 70 * 30));
-    chem.push(Math.round(v("che3") / 35 * 10));
+    chem.push(v("che1") / 35 * 10);
+    chem.push(v("che2") / 70 * 30);
+    chem.push(v("che3") / 35 * 10);
 
-    math.push(Math.round(v("mat1") / 40 * 10));
-    math.push(Math.round(v("mat2") / 80 * 30));
-    math.push(Math.round(v("mat3") / 40 * 10));
+    math.push(v("mat1") / 40 * 10);
+    math.push(v("mat2") / 80 * 30);
+    math.push(v("mat3") / 40 * 10);
 
-    bio.push(Math.round(v("bio1") / 35 * 10));
-    bio.push(Math.round(v("bio2") / 70 * 30));
-    bio.push(Math.round(v("bio3") / 35 * 10));
+    bio.push(v("bio1") / 35 * 10);
+    bio.push(v("bio2") / 70 * 30);
+    bio.push(v("bio3") / 35 * 10);
 
-    eng.push(Math.round(v("eng1") / 40 * 10));
-    eng.push(Math.round(v("eng2") / 80 * 30));
-    eng.push(Math.round(v("eng3") / 40 * 10));
+    eng.push(v("eng1") / 40 * 10);
+    eng.push(v("eng2") / 80 * 30);
+    eng.push(v("eng3") / 40 * 10);
 
-    cs.push(Math.round(v("c1") / 35 * 10));
-    cs.push(Math.round(v("c2") / 70 * 30));
-    cs.push(Math.round(v("c3") / 35 * 10));
+    cs.push(v("c1") / 35 * 10);
+    cs.push(v("c2") / 70 * 30);
+    cs.push(v("c3") / 35 * 10);
 
-    ai.push(Math.round(v("a1") / 40 * 10));
-    ai.push(Math.round(v("a2") / 50 * 30));
-    ai.push(Math.round(v("a3") / 40 * 10));
+    ai.push(v("a1") / 40 * 10);
+    ai.push(v("a2") / 50 * 30);
+    ai.push(v("a3") / 40 * 10);
 
     const wPhy = phy.reduce((s, n) => s + n, 0);
     const wChem = chem.reduce((s, n) => s + n, 0);
@@ -85,9 +87,9 @@ button.addEventListener("click", function () {
     } else if (stream === "MBPC") {
         totalWeightage = wPhy + wChem + wMath + wBio + wEng + wAi;
     }
-    currentWeightage = Number((totalWeightage / 600 * 100).toFixed(2));
+    currentWeightage = Number((totalWeightage / 600 * 100));
 
-    document.getElementById("result2").innerText = "Your Weightage is so far is: " + currentWeightage + "%";
+    document.getElementById("result2").innerText = "Your Weightage is so far is: " + currentWeightage.toFixed(2) + "%";
     console.log(currentWeightage)
     console.log(checkbox.checked)
     if (checkbox.checked) {
@@ -111,29 +113,29 @@ button.addEventListener("click", function () {
             pred.innerText = "Required marks in finals:";
             if (stream === "MBPC") {
 
-                document.getElementById("phyPred").innerText = perSub * 70 / 50;
-                document.getElementById("chePred").innerText = perSub * 70 / 50;
-                document.getElementById("matPred").innerText = perSub * 80 / 50;
-                document.getElementById("engPred").innerText = perSub * 80 / 50;
-                document.getElementById("bioPred").innerText = perSub * 70 / 50;
+                document.getElementById("phyPred").innerText = Math.ceil(perSub * 70 / 50);
+                document.getElementById("chePred").innerText = Math.ceil(perSub * 70 / 50);
+                document.getElementById("matPred").innerText = Math.ceil(perSub * 80 / 50);
+                document.getElementById("engPred").innerText = Math.ceil(perSub * 80 / 50);
+                document.getElementById("bioPred").innerText = Math.ceil(perSub * 70 / 50);
                 document.getElementById("ipPred").innerText = "-";
-                document.getElementById("aiPred").innerText = perSub;
+                document.getElementById("aiPred").innerText = Math.ceil(perSub);
             } else if (stream === "MPC") {
-                document.getElementById("phyPred").innerText = perSub * 70 / 50;
-                document.getElementById("chePred").innerText = perSub * 70 / 50;
-                document.getElementById("matPred").innerText = perSub * 80 / 50;
-                document.getElementById("engPred").innerText = perSub * 80 / 50;
+                document.getElementById("phyPred").innerText = Math.ceil(perSub * 70 / 50);
+                document.getElementById("chePred").innerText = Math.ceil(perSub * 70 / 50);
+                document.getElementById("matPred").innerText = Math.ceil(perSub * 80 / 50);
+                document.getElementById("engPred").innerText = Math.ceil(perSub * 80 / 50);
                 document.getElementById("bioPred").innerText = "-";
-                document.getElementById("ipPred").innerText = perSub * 70 / 50;
-                document.getElementById("aiPred").innerText = perSub;
+                document.getElementById("ipPred").innerText = Math.ceil(perSub * 70 / 50);
+                document.getElementById("aiPred").innerText = Math.ceil(perSub);
             } else if (stream === "BPC") {
-                document.getElementById("phyPred").innerText = perSub * 70 / 50;
-                document.getElementById("chePred").innerText = perSub * 70 / 50;
-                document.getElementById("bioPred").innerText = perSub * 70 / 50;
-                document.getElementById("ipPred").innerText = perSub * 70 / 50;
-                document.getElementById("engPred").innerText = perSub * 80 / 50;
+                document.getElementById("phyPred").innerText = Math.ceil(perSub * 70 / 50);
+                document.getElementById("chePred").innerText = Math.ceil(perSub * 70 / 50);
+                document.getElementById("bioPred").innerText = Math.ceil(perSub * 70 / 50);
+                document.getElementById("ipPred").innerText = Math.ceil(perSub * 70 / 50);
+                document.getElementById("engPred").innerText = Math.ceil(perSub * 80 / 50);
                 document.getElementById("matPred").innerText = "-";
-                document.getElementById("aiPred").innerText = perSub;
+                document.getElementById("aiPred").innerText = Math.ceil(perSub);
             }
         }
 
